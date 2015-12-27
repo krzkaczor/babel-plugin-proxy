@@ -1,7 +1,7 @@
 {
   "name": "babel-plugin-proxy",
   "version": "1.0.3",
-  "description": "",
+  "description": "Use ES2015 proxies today!",
   "main": "build/app.js",
   "scripts": {
     "compile": "babel -d build/ src/",
