@@ -15,7 +15,6 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "babel": "6.3.13",
     "babel-preset-es2015": "6.3.13",
     "babel-traverse": "6.3.26",
     "babylon": "6.3.26",
