@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-proxy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "build/app.js",
   "scripts": {
@@ -21,6 +21,5 @@
     "babel-cli": "6.3.17",
     "babel-core": "6.3.26"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
