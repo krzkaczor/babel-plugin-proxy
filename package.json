@@ -9,7 +9,7 @@
     "prestart": "npm run compile",
     "start": "node build/app.js",
     "pretest": "npm run compile && npm run compile-test",
-    "postinstall": "npm run compile && npm run compile-test",
+    "prepublish": "npm run compile",
     "test": "node test-compiled/test-plugin.js"
   },
   "author": "",
