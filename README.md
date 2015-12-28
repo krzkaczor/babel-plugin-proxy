@@ -12,13 +12,17 @@ The problem is that proper proxy implementation requires native browser support 
     
 ## How does it work?
 
-We are intercepting every property access (almost every), property assignment with custom interceptor functions that performs runtime check if object is proxied.
+We are intercepting every property access (except these connected with function invocation) and property assignment with custom interceptor functions that performs runtime check if object is proxied.
     
+    proxy.foo = 5;
     proxy.foo;
        
 becomes:
     
+    globalSetInterceptor(proxy, "foo", 5);
     globalGetInterceptor(proxy, 'foo');
+    
+These interceptors performs runtime check if object should be proxied. You can check out whole runtime [here](https://github.com/krzkaczor/babel-plugin-proxy/blob/master/src/runtime.js)
 
 ## Example
 Proxies for example allow us to create objects that will warn us when `undefined` key is being accessed. 
