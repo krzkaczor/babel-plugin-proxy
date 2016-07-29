@@ -1,5 +1,4 @@
-var babel = require('babel-core');
-var fs = require('fs');
+var babel = require('babel-core')
 
 var code = `
 var a = new Proxy({}, {
@@ -17,16 +16,16 @@ var a = new Proxy({}, {
 a.b = "abc";
 console.log(a.b);
 console.log(a.c);
-`;
+`
 
-var pluginPath = require.resolve('../build/app.js');
+var pluginPath = require.resolve('../build/app.js')
 var output = babel.transform(code, {
-    plugins: [pluginPath]
-});
+  plugins: [pluginPath]
+})
 
-let outPutcode = output.code;
-console.log(outPutcode);
+let outPutcode = output.code
+console.log(outPutcode)
 
-console.log("running...\n\n");
+console.log('running...\n\n')
 
-eval(outPutcode);
+eval(outPutcode) // eslint-disable-line

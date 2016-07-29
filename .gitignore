@@ -1,1 +1,4 @@
 build
+.idea
+node_modules
+test-compiled

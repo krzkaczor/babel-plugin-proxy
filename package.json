@@ -10,7 +10,8 @@
     "start": "node build/app.js",
     "pretest": "npm run compile && npm run compile-test",
     "prepublish": "npm run compile",
-    "test": "node test-compiled/test-plugin.js"
+    "lint": "standard \"src/app.js\" \"test/**/*.js\"",
+    "test": "npm run lint && node test-compiled/test-plugin.js"
   },
   "repository": {
     "type": "git",
@@ -29,5 +30,7 @@
     "babel-cli": "6.3.17",
     "babel-core": "6.3.26"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "standard": "7.1.2"
+  }
 }
