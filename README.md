@@ -1,5 +1,6 @@
 # babel-plugin-proxy
 [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
+
 Use ES6 proxies today!
 
 ## Installation

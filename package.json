@@ -5,13 +5,12 @@
   "main": "build/app.js",
   "scripts": {
     "compile": "babel -d build/ src/",
-    "compile-test": "babel -d test-compiled/ test/",
     "prestart": "npm run compile",
     "start": "node build/app.js",
-    "pretest": "npm run compile && npm run compile-test",
+    "pretest": "npm run compile",
     "prepublish": "npm run compile",
     "lint": "standard \"src/app.js\" \"test/**/*.js\"",
-    "test": "npm run lint && node test-compiled/test-plugin.js"
+    "test": "npm run lint && mocha --compilers js:babel-register"
   },
   "repository": {
     "type": "git",
@@ -31,6 +30,12 @@
     "babel-core": "6.3.26"
   },
   "devDependencies": {
+    "babel-register": "6.11.6",
+    "chai": "3.5.0",
+    "mocha": "2.5.3",
     "standard": "7.1.2"
+  },
+  "standard": {
+    "env": [ "mocha" ]
   }
 }

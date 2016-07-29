@@ -1,13 +1,5 @@
 const fs = require('fs')
 const babylon = require('babylon')
-const traverse = require('babel-traverse').default
-const visitors = require('babel-traverse').visitors
-
-// there is no way to skip certain keys while traversing
-function traverseNoKeys (nodePath, visitor, state, skipKeys) {
-  visitors.explode(visitor)
-  return traverse.node(nodePath.node, visitor, nodePath.scope, state, nodePath, skipKeys)
-}
 
 function attachRuntime (programPath) {
   // get and parse runtime - i think that there should be better ways to do this...
@@ -56,20 +48,6 @@ export default function ({ types: t }) {
           this.disableGetTrap.pop()
           this.disableSetTrap.pop()
         }
-      }
-    },
-
-    CallExpression: {
-      enter (path) {
-        traverseNoKeys(path, proxyNodes, {
-          disableGetTrap: this.disableGetTrap,
-          disableSetTrap: this.disableSetTrap
-        }, { callee: true })
-        this.disableGetTrap.push(true)
-      },
-
-      exit () {
-        this.disableGetTrap.pop()
       }
     }
   }

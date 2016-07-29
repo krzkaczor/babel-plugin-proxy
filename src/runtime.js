@@ -23,7 +23,12 @@ function globalGetInterceptor(object, propertyName) {
     if (object instanceof Proxy) {
         return object.getTrap(propertyName);
     }
-    return defaultHandler.get(propertyName);
+    var value = defaultHandler.get(object, propertyName);
+    if (typeof value === 'function') {
+        return value.bind(object)
+    } else {
+        return value
+    }
 }
 
 function globalSetInterceptor(object, propertyName, value) {
