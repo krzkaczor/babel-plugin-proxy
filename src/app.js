@@ -17,7 +17,7 @@ export default function ({ types: t }) {
 
       var name = path.node.property.name
       var callee = path.node.computed ? t.identifier(name) : t.stringLiteral(name)
-      path.replaceWith(t.callExpression(t.identifier('globalGetInterceptor'), [path.node.object, callee]));
+      path.replaceWith(t.callExpression(t.identifier('globalGetInterceptor'), [path.node.object, callee]))
     },
 
     AssignmentExpression (path) {
