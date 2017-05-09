@@ -35,5 +35,5 @@ function globalSetInterceptor(object, propertyName, value) {
     if (object instanceof Proxy) {
         return object.setTrap(propertyName, value);
     }
-    defaultHandler.set(propertyName, value);
+    defaultHandler.set(object, propertyName, value);
 }
