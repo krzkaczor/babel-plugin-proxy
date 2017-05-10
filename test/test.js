@@ -56,6 +56,29 @@ describe('babel-plugin-proxy', function () {
     expect(runLogs[0]).to.be.eq('function')
     expect(runLogs[1].toString()).to.be.eq('{},func,123')
   })
+
+  it('should work with computed member function', function () {
+    const code = `
+      var handler = {
+        get: function(target, name) {
+          return name in target ?
+            target[name] :
+            37;
+        }
+      };
+
+      var p = new Proxy({}, handler);
+      p.a = 1;
+      p.b = undefined;
+
+      console.log(p.a); // 1
+      console.log(p.b); // undefined
+      console.log('c' in p); // false
+      console.log(p.c); // 37
+    `
+    const runLogs = compileAndRun(code)
+    expect(runLogs).to.be.deep.eq([1, undefined, false, 37])
+  })
 })
 
 function compileAndRun (code) {
