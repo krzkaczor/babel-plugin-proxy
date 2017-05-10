@@ -25,10 +25,11 @@ export default function ({ types: t }) {
         if (this.disableSetTrap[ this.disableSetTrap.length - 1 ]) return
 
         const memberExpr = path.node.left
+        const callee = memberExpr.computed ? memberExpr.property : t.stringLiteral(memberExpr.property.name)
         path.replaceWith(
           t.callExpression(t.identifier('globalSetInterceptor'), [
             memberExpr.object,
-            t.stringLiteral(memberExpr.property.name),
+            callee,
             path.node.right
           ])
         )
