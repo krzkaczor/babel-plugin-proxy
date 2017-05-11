@@ -1,21 +1,20 @@
 const expect = require('chai').expect
 const babel = require('babel-core')
 
+const log = console.log
 describe('babel-plugin-proxy', function () {
   it('should trap property get', function () {
     const code = `
       var a = new Proxy({}, {
-          get: function(obj, key) {
-              console.log("Accessing " + key)
-              return obj[key];
-          },
-      });
+        get: function(target, name) {
+          console.log('Accessing ' + name)
+        }
+      })
       a.b
-      `
+    `
 
     const runLogs = compileAndRun(code)
-    expect(runLogs.length).to.be.eq(1)
-    expect(runLogs[0]).to.be.eq('Accessing b')
+    expect(runLogs).to.be.deep.eq(['Accessing b'])
   })
 
   it('should trap property get and set', function () {
@@ -79,12 +78,24 @@ describe('babel-plugin-proxy', function () {
     const runLogs = compileAndRun(code)
     expect(runLogs).to.be.deep.eq([1, undefined, false, 37])
   })
+
+  it('should not mess up update expressions', function () {
+    const code = `
+      var x = { i: 0 }
+      var m = ['hello']
+      console.log(m[x.i++])
+      console.log(++x.i)
+    `
+    const runLogs = compileAndRun(code)
+    expect(runLogs).to.be.deep.eq(['hello', 2])
+  })
 })
 
 function compileAndRun (code) {
   const pluginPath = require.resolve('../build/app.js')
   const output = babel.transform(code, {
-    plugins: [ pluginPath ]
+    plugins: [ pluginPath ],
+    presets: [ 'env' ]
   })
 
   const logs = []
@@ -93,6 +104,7 @@ function compileAndRun (code) {
   const console = {
     log: (val) => logs.push(val)
   }
+
   eval(output.code)
   /* eslint-enable */
 
